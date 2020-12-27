@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="avenir-white.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">README</h1>
+</header>
+<h1 id="genomic-selection-scan-using-bayenv2">Genomic Selection Scan Using Bayenv2</h1>
+<p>This module was taught over 3 weeks, as part of a graduate course on Ecological Genomics at the University of Vermont. The goal is to identify candidate SNPs under natural selection in a population genomics data set of SNP variation across 42 populations of <em>Populus balsamifera</em></p>
+<p>This is an environmental correlation analysis using BAYENV2 method (Coop et al) which requires two key pieces of information:</p>
+<ul>
+<li><em>Genomic Data</em>: Allelic Counts per locus per population</li>
+<li><em>Environmental Data</em>: Geography (Latitude, Longitude) &amp; Climate (BIOCLIM Variables)</li>
+</ul>
+<p><br><br></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<p><a href="envcorr_slides.pdf">1. Slides: Background Information</a> (PDF)</p>
+<p><a href="#covariance-matrix-of-allele-frequencies">2. Covariance Matrix of Allele Frequencies</a></p>
+<ul>
+<li><p><a href="#intergenic-or-neutral-snps">2.1 Intergenic or Neutral SNPs</a></p></li>
+<li><p><a href="#covariance-matrix-estimation">2.2 Covariance Matrix Estimation</a></p></li>
+<li><p><a href="#heatmap-of-covmat">2.3 Heatmap of COVMAT</a></p></li>
+</ul>
+<p><a href="#environmental-pca">3. Environmental PCA</a></p>
+<ul>
+<li><p><a href="#aggregate-envpc-data-to-population-level">3.1 Aggregate ENVPC data to Population Level</a></p></li>
+<li><p><a href="#verify-population-order-in-both-datasets">3.2 Verify Population Order In Both Datasets</a></p></li>
+</ul>
+<p><a href="#environmental-correlation-analysis">4. Environmental Correlation Analysis</a></p>
+<ul>
+<li><p><a href="#the-runbayechr3.sh-script">4.1 The runBayeChr3.sh Script</a></p></li>
+<li><p><a href="#correlation-output">4.2 Correlation Output</a></p></li>
+<li><p><a href="#understanding-bayes-factor-output">4.3 Understanding Bayes Factor Output</a></p></li>
+<li><p><a href="#plot-bayes-factors">4.4 Plot Bayes Factors</a></p></li>
+<li><p><a href="#identify-extreme-outliers">4.5 Identify Extreme Outliers</a></p></li>
+</ul>
+<p><br><br><br><br><Br><br><br></p>
+<h2 id="slides-background-information">1. Slides: Background Information</h2>
+<p>The <a href="envcorr_slides.pdf">linked PDF</a> contains both background information and a roadmap for the analysis involved in this module.</p>
+<h2 id="covariance-matrix-of-allele-frequencies">2. Covariance Matrix of Allele Frequencies</h2>
+<p>To account for population structure present in the data sets, we will estimate variance-covariance matrix of allele frequencies among populations. Ideally this inference should be drawn from variants that are (1) independent from the ones that would be tested for GENE x ENVIRONMENT correlation, and (2) reside in intronic regions of the genome unlikely to be under the action of natural selection.</p>
+<h3 id="intergenic-or-neutral-snps">2.1 Intergenic Or Neutral SNPs</h3>
+<p>We define these SNPs are intergenic, interpreted as such based on functional annotations. For this data set we have 1353 intergenic SNPs available for estimating this covariance matrix</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">ls</span> -lh</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="ex">-rw-r--r--@</span> 1 vikram   255K Oct 27 14:45 core336_ig.bayenv2</span></code></pre></div>
+<h3 id="covariance-matrix-estimation">2.2 Covariance Matrix Estimation</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">bayenv2</span> -i core336_ig.bayenv2 -p 42 -k 100000 -r 384729 <span class="op">&gt;</span> core336_matrix.out</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="fu">tail</span> -n 42 core_336_matrix.out <span class="op">&gt;</span> core336_final.matrix</span></code></pre></div>
+<p>Here we ran the 100K steps of MCMC to estimate the COVMAT. After every 5000 steps, a new matrix was generated. Thus, there were 200 matrices altogether. For further analysis we will only take the 200th matrix, which is what the tail command above does.</p>
+<h3 id="heatmap-of-covmat">2.3 Heatmap of COVMAT</h3>
+<p>Use the following script to generate a covariance matrix heatmap.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co">### Load the gplots2 package</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">library</span>(gplots)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="co">## Load color brewer</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="kw">library</span>(RColorBrewer)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="co">## Load SDMTools for legend.gradient</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">library</span>(SDMTools)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="co">## Insert column headers (pop names)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>cat popnames 100kmatrix.out <span class="op">&gt;</span><span class="st"> </span>100kmatrix2.out</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="co">## First import the results.  The input is the output from the matrix_corr.r script (only if you are doing heatmap for correlations).  The code below is only for covariance matrix heatmap.  Add row names in the first column, convert spaces to tabs, save.</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>cov &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;100kmatrix2.out&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a><span class="co">## apply labels from column 1 as row headers (names); Assuming that column 1 header is &#39;Variable&#39;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a><span class="kw">row.names</span>(cov) &lt;-<span class="st"> </span><span class="kw">colnames</span>(cov)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a><span class="co">## We do not need the first row be treated as data, since it contains column labels. This example has 100 rows.</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a><span class="co">#cov &lt;- cov[,2:19]</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a><span class="co">## Treat the data as matrix, just to be sure R treats it as matrix</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a><span class="co">#covmat &lt;- as.matrix(cov)</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a><span class="co">## Check the dimensions to make sure you are getting what you wanted.  If your data has 10 rows 6 columns, it should say 10x6</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a><span class="kw">dim</span>(covmat)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a><span class="co">## Heat Map begins</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>blue2white &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&#39;steelblue&#39;</span>, <span class="st">&#39;white&#39;</span>))</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a><span class="co">#red2yellow &lt;- colorRampPalette(c(&quot;red&quot;,&quot;yellow&quot;))</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a><span class="co">#red2white &lt;- colorRampPalette(c(&#39;red&#39;, &#39;white&#39;))</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a><span class="co">## First create a pdf object</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a><span class="kw">pdf</span>(<span class="dt">file=</span><span class="st">&#39;covmat_poplar.pdf&#39;</span>, <span class="dt">width=</span><span class="dv">12</span>, <span class="dt">height=</span><span class="dv">12</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a><span class="kw">heatmap.2</span>(covmat,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a><span class="dt">symm=</span><span class="ot">FALSE</span>,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a><span class="dt">revC=</span><span class="ot">FALSE</span>,</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a><span class="dt">Rowv=</span><span class="ot">FALSE</span>,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a><span class="dt">Colv=</span><span class="ot">FALSE</span>,</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a><span class="dt">dendrogram=</span> <span class="kw">c</span>(<span class="st">&quot;none&quot;</span>),  <span class="co"># replace none with column if you want dendrogram.</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a><span class="dt">distfun =</span> dist,</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a><span class="dt">hclustfun =</span> hclust,</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a><span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a><span class="dt">key=</span><span class="ot">FALSE</span>,</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a><span class="dt">keysize=</span><span class="dv">1</span>,</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a><span class="dt">trace=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a><span class="dt">density.info=</span><span class="kw">c</span>(<span class="st">&quot;none&quot;</span>),</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a><span class="dt">margins=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">10</span>),</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a><span class="co">#col=heat.colors(256),</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a><span class="co">#col=brewer.pal(9, &#39;YlOrRd&#39;)(20),</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a><span class="co">#col=red2yellow(20),</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true"></a><span class="co">#colorRampPalette(brewer.pal(9,&quot;YlOrRd&quot;))(20),</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true"></a><span class="co">#col=red2yellow(20),</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true"></a><span class="dt">col=</span><span class="kw">blue2white</span>(<span class="dv">20</span>),</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true"></a><span class="dt">cexRow=</span><span class="dv">1</span>, <span class="dt">cexCol=</span><span class="dv">1</span>,</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true"></a><span class="dt">add.expr=</span><span class="ot">TRUE</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a>)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true"></a><span class="co">#points for the gradient legend</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>pnts =<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="fl">0.07</span>,<span class="fl">0.085</span>,<span class="fl">0.085</span>,<span class="fl">0.07</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="fl">0.65</span>,<span class="fl">0.85</span>,<span class="fl">0.65</span>,<span class="fl">0.85</span>))</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true"></a><span class="co">#create the gradient legend</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a><span class="kw">legend.gradient</span>(pnts, <span class="kw">blue2white</span>(<span class="dv">20</span>), <span class="dt">title=</span><span class="kw">c</span>(<span class="st">&quot;&quot;</span>), <span class="dt">limits=</span><span class="kw">c</span>(<span class="st">&quot;-1&quot;</span>,<span class="st">&quot;+1&quot;</span>), <span class="dt">cex=</span><span class="fl">0.9</span>)</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true"></a></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true"></a><span class="co">## Print it to pdf</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true"></a><span class="kw">dev.off</span>()</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true"></a></span></code></pre></div>
+<p><br></p>
+<center>
+<img src="covmat_poplar.png" width=700></img>
+</center>
+<p><br><br><br></p>
+<h2 id="environmental-pca">3. Environmental PCA</h2>
+<p>For this exercise we are being provided with results from a principle component analysis with 18 bioclim variables in addition to latitude, longitude and elevation for each population. Of the 20 PCs obtained from this analysis, we will be using the top 3 principle components for further analysis.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="fu">ls</span> -lh</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="ex">-rw-r--r--@</span> 1 vikram  staff   5.8K Oct 27 21:21 core336.envPC</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="fu">head</span> core336.envPC</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="ex">pop</span> ind_code    PC1 PC2 PC3</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="ex">CHL</span> CHL_01  -3.40791108481855   -1.52091457948876   -1.16877641344633</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a><span class="ex">CHL</span> CHL_04  -3.56296514054725   -1.12029836620479   -1.39936931787457</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="ex">CHL</span> CHL_06  -3.416967588679 -1.53618443413472   -1.13292697567598</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a><span class="ex">CHL</span> CHL_07  -3.41698325358195   -1.53620836106472   -1.13291592456589</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a><span class="ex">CHL</span> CHL_08  -3.38206354781062   -1.5575548993799    -1.12343335695832</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a><span class="ex">CHL</span> CHL_12  -3.46186553649546   -1.4881034636552    -1.08729531518871</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a><span class="ex">CHL</span> CHL_13  -3.4428848885974    -1.52386887305361   -1.1035376179771</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="ex">CLK</span> CLK_01  2.77995425945649    0.247537146952795   -0.138362486476488</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a><span class="ex">CLK</span> CLK_02  2.71799500721176    0.309298083096405   -0.116937317422946</span></code></pre></div>
+<p><br></p>
+<h3 id="aggregate-envpc-data-to-population-level">3.1 Aggregate ENVPC data to Population Level</h3>
+<p>Since the PCA data is currently at individual level, we need to aggregate it for populations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;core336.envPC&#39;</span>, <span class="dt">header=</span>T)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">head</span>(df)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>  pop ind_code       PC1       PC2       PC3</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="dv">1</span> CHL   CHL_<span class="dv">01</span> <span class="fl">-3.407911</span> <span class="fl">-1.520915</span> <span class="fl">-1.168776</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="dv">2</span> CHL   CHL_<span class="dv">04</span> <span class="fl">-3.562965</span> <span class="fl">-1.120298</span> <span class="fl">-1.399369</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="dv">3</span> CHL   CHL_<span class="dv">06</span> <span class="fl">-3.416968</span> <span class="fl">-1.536184</span> <span class="fl">-1.132927</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="dv">4</span> CHL   CHL_<span class="dv">07</span> <span class="fl">-3.416983</span> <span class="fl">-1.536208</span> <span class="fl">-1.132916</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="dv">5</span> CHL   CHL_<span class="dv">08</span> <span class="fl">-3.382064</span> <span class="fl">-1.557555</span> <span class="fl">-1.123433</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="dv">6</span> CHL   CHL_<span class="dv">12</span> <span class="fl">-3.461866</span> <span class="fl">-1.488103</span> <span class="fl">-1.087295</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>df2.agr &lt;-<span class="st"> </span><span class="kw">aggregate</span>(df[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">by=</span><span class="kw">list</span>(df<span class="op">$</span>pop), <span class="dt">FUN=</span>mean)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a><span class="kw">head</span>(df2.agr)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>  Group<span class="fl">.1</span>        PC1        PC2        PC3</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a><span class="dv">1</span>     CHL <span class="fl">-3.4416630</span> <span class="fl">-1.4690190</span> <span class="fl">-1.1640364</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a><span class="dv">2</span>     CLK  <span class="fl">2.7714984</span>  <span class="fl">0.2861724</span> <span class="fl">-0.1344567</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a><span class="dv">3</span>     CPL <span class="fl">-1.1217782</span>  <span class="fl">0.3943519</span> <span class="fl">-0.0594341</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a><span class="dv">4</span>     DCK  <span class="fl">3.6059735</span>  <span class="fl">0.3551648</span>  <span class="fl">0.3055548</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a><span class="dv">5</span>     DPR <span class="fl">-1.4359603</span> <span class="fl">-1.6350937</span>  <span class="fl">0.1830463</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a><span class="dv">6</span>     GAM <span class="fl">-0.0234029</span>  <span class="fl">1.4826197</span>  <span class="fl">2.6026243</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a></span></code></pre></div>
+<ul>
+<li>Save the new data frame</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">write.table</span>(df2.agr, <span class="st">&quot;pc123.ENV.pop42&quot;</span>, <span class="dt">quote=</span>F, <span class="dt">sep=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, <span class="dt">row.names=</span>F, <span class="dt">col.names=</span>T)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a></span></code></pre></div>
+<ul>
+<li>Also save the transposed version of this data frame</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">write.table</span>(<span class="kw">t</span>(df2.agr), <span class="st">&quot;pc123.ENV.tposed.pop42&quot;</span>, <span class="dt">quote=</span>F, <span class="dt">sep=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, <span class="dt">row.names=</span>F, <span class="dt">col.names=</span>T)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span></code></pre></div>
+<h3 id="verify-population-order-in-both-datasets">3.2 Verify Population Order In Both Datasets</h3>
+<ul>
+<li>Now, we need to make sure that the order of populations in this table is the same as that for genotype data for these 42 populations. Read the transposed data back into R.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>df2.agr &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;pc123.ENV.tposed.pop42&#39;</span>, <span class="dt">header=</span>T)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">head</span>(df2.agr)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>        CHL        CLK        CPL       DCK        DPR        GAM       HBY</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">-3.441663</span>  <span class="fl">2.7714984</span> <span class="fl">-1.1217782</span> <span class="fl">3.6059735</span> <span class="fl">-1.4359603</span> <span class="fl">-0.0234029</span> <span class="fl">3.7067885</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-1.469019</span>  <span class="fl">0.2861724</span>  <span class="fl">0.3943519</span> <span class="fl">0.3551648</span> <span class="fl">-1.6350937</span>  <span class="fl">1.4826197</span> <span class="fl">0.4011548</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">-1.164036</span> <span class="fl">-0.1344567</span> <span class="fl">-0.0594341</span> <span class="fl">0.3055548</span>  <span class="fl">0.1830463</span>  <span class="fl">2.6026243</span> <span class="fl">0.3314839</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>         HST       KAP       LON        LPD        MMT        NBY        NIC</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">0.68821260</span> <span class="fl">0.3395909</span> <span class="fl">-4.428999</span> <span class="fl">-3.0431315</span>  <span class="fl">2.9422146</span> <span class="fl">-2.8078718</span> <span class="fl">-1.1638967</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">0.61838209</span> <span class="fl">0.5231060</span> <span class="fl">-2.497800</span> <span class="fl">-2.5955948</span> <span class="fl">-0.8996871</span> <span class="fl">-0.5479383</span> <span class="fl">-3.3327755</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">0.01673952</span> <span class="fl">0.2277868</span> <span class="fl">-1.118786</span>  <span class="fl">0.2736758</span> <span class="fl">-0.5324874</span>  <span class="fl">0.3210550</span>  <span class="fl">0.7223532</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>        OFR       OUT        SKN        SLC        SSR         TIM        TUR</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">3.8543355</span>  <span class="fl">3.527296</span>  <span class="fl">3.7102294</span> <span class="fl">-3.0053015</span>  <span class="fl">0.2909058</span> <span class="fl">-0.15395840</span>  <span class="fl">3.0278502</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">0.2837569</span> <span class="fl">-1.309681</span> <span class="fl">-0.9690802</span> <span class="fl">-2.2857357</span> <span class="fl">-5.0172599</span>  <span class="fl">0.07316681</span>  <span class="fl">0.4154857</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">0.2550614</span> <span class="fl">-1.475017</span> <span class="fl">-1.1126406</span>  <span class="fl">0.1827175</span> <span class="fl">-5.5681024</span>  <span class="fl">0.28236407</span> <span class="fl">-0.7913404</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>       USDA1     USDA10     USDA12     USDA13     USDA14     USDA15     USDA16</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a><span class="dv">1</span>  <span class="fl">0.4190433</span> <span class="fl">-0.1827119</span> <span class="fl">-1.2563710</span> <span class="fl">-0.6503396</span> <span class="fl">-0.7170976</span> <span class="fl">-2.5281129</span> <span class="fl">-2.3997969</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-2.2501734</span> <span class="fl">-1.6839757</span> <span class="fl">-1.3463352</span> <span class="fl">-2.1405969</span> <span class="fl">-2.9843278</span> <span class="fl">-1.6951548</span> <span class="fl">-1.7662754</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a><span class="dv">3</span>  <span class="fl">2.4087908</span>  <span class="fl">1.5226147</span>  <span class="fl">0.1405484</span>  <span class="fl">0.4535536</span>  <span class="fl">0.5523843</span> <span class="fl">-0.4934142</span> <span class="fl">-0.8578083</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>      USDA17     USDA18     USDA19      USDA2    USDA21      USDA3      USDA4</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">-2.1383908</span> <span class="fl">-2.0916993</span> <span class="fl">-1.7176160</span>  <span class="fl">0.5126406</span> <span class="fl">-0.921333</span> <span class="fl">-0.6466922</span>  <span class="fl">0.7081282</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-1.9344084</span> <span class="fl">-2.8350151</span> <span class="fl">-2.8041237</span> <span class="fl">-2.0398049</span> <span class="fl">-1.833369</span> <span class="fl">-0.2643395</span> <span class="fl">-1.0688186</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">-0.6445486</span> <span class="fl">-0.7144912</span> <span class="fl">-0.3402399</span>  <span class="fl">2.2239417</span>  <span class="fl">1.848250</span>  <span class="fl">1.2282314</span>  <span class="fl">1.9096496</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>       USDA5     USDA6     USDA7     USDA8     USDA9        VER        WTR</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="dv">1</span>  <span class="fl">0.9008194</span>  <span class="fl">1.107652</span>  <span class="fl">1.226827</span>  <span class="fl">1.846822</span>  <span class="fl">1.665155</span> <span class="fl">-3.4492268</span> <span class="fl">-0.1898949</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-1.1822345</span> <span class="fl">-1.527163</span> <span class="fl">-1.172686</span> <span class="fl">-1.465682</span> <span class="fl">-1.512212</span> <span class="fl">-2.5426615</span>  <span class="fl">0.7077555</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true"></a><span class="dv">3</span>  <span class="fl">2.3122228</span>  <span class="fl">2.183572</span>  <span class="fl">2.149100</span>  <span class="fl">2.314840</span>  <span class="fl">2.273208</span>  <span class="fl">0.6722562</span>  <span class="fl">0.1320863</span></span></code></pre></div>
+<ul>
+<li>What is the order of populations in the genotype data?</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>geno.poporder &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;geno.poporder&#39;</span>, <span class="dt">header=</span>F)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>geno.poporder</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>       V1</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="dv">1</span>     CHL</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="dv">2</span>     CLK</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="dv">3</span>     CPL</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a><span class="dv">4</span>     DCK</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a><span class="dv">5</span>     DPR</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="dv">6</span>     GAM</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a><span class="dv">7</span>     HBY</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a><span class="dv">8</span>     HST</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a><span class="dv">9</span>     KAP</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a><span class="dv">10</span>    LON</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a><span class="dv">11</span>    LPD</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a><span class="dv">12</span>    MMT</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a><span class="dv">13</span>    NBY</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a><span class="dv">14</span>    NIC</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a><span class="dv">15</span>    OFR</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true"></a><span class="dv">16</span>    OUT</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true"></a><span class="dv">17</span>    SKN</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true"></a><span class="dv">18</span>    SLC</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true"></a><span class="dv">19</span>    SSR</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true"></a><span class="dv">20</span>    TIM</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true"></a><span class="dv">21</span>    TUR</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true"></a><span class="dv">22</span> USDA10</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true"></a><span class="dv">23</span> USDA12</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true"></a><span class="dv">24</span> USDA13</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true"></a><span class="dv">25</span> USDA14</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true"></a><span class="dv">26</span> USDA15</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true"></a><span class="dv">27</span> USDA16</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true"></a><span class="dv">28</span> USDA17</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true"></a><span class="dv">29</span> USDA18</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true"></a><span class="dv">30</span> USDA19</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true"></a><span class="dv">31</span>  USDA1</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true"></a><span class="dv">32</span> USDA21</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true"></a><span class="dv">33</span>  USDA2</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true"></a><span class="dv">34</span>  USDA3</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true"></a><span class="dv">35</span>  USDA4</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true"></a><span class="dv">36</span>  USDA5</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true"></a><span class="dv">37</span>  USDA6</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true"></a><span class="dv">38</span>  USDA7</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true"></a><span class="dv">39</span>  USDA8</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true"></a><span class="dv">40</span>  USDA9</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true"></a><span class="dv">41</span>    VER</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true"></a><span class="dv">42</span>    WTR</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true"></a></span></code></pre></div>
+<ul>
+<li>It is obvious that the poporder is not the same between the genotype data and the environmental data. Let’s fix that. The only change we need to make is for some of the USDA populations. So we will do that manually.</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>df2.agr2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(df2.agr[,<span class="dv">1</span><span class="op">:</span><span class="dv">21</span>], df2.agr[,<span class="dv">23</span><span class="op">:</span><span class="dv">31</span>],df2.agr<span class="op">$</span>USDA1,df2.agr<span class="op">$</span>USDA21,df2.agr<span class="op">$</span>USDA2,df2.agr[,<span class="dv">34</span><span class="op">:</span><span class="dv">42</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>df2.agr2</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>        CHL        CLK        CPL       DCK        DPR        GAM       HBY</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">-3.441663</span>  <span class="fl">2.7714984</span> <span class="fl">-1.1217782</span> <span class="fl">3.6059735</span> <span class="fl">-1.4359603</span> <span class="fl">-0.0234029</span> <span class="fl">3.7067885</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-1.469019</span>  <span class="fl">0.2861724</span>  <span class="fl">0.3943519</span> <span class="fl">0.3551648</span> <span class="fl">-1.6350937</span>  <span class="fl">1.4826197</span> <span class="fl">0.4011548</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">-1.164036</span> <span class="fl">-0.1344567</span> <span class="fl">-0.0594341</span> <span class="fl">0.3055548</span>  <span class="fl">0.1830463</span>  <span class="fl">2.6026243</span> <span class="fl">0.3314839</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>         HST       KAP       LON        LPD        MMT        NBY        NIC</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">0.68821260</span> <span class="fl">0.3395909</span> <span class="fl">-4.428999</span> <span class="fl">-3.0431315</span>  <span class="fl">2.9422146</span> <span class="fl">-2.8078718</span> <span class="fl">-1.1638967</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">0.61838209</span> <span class="fl">0.5231060</span> <span class="fl">-2.497800</span> <span class="fl">-2.5955948</span> <span class="fl">-0.8996871</span> <span class="fl">-0.5479383</span> <span class="fl">-3.3327755</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">0.01673952</span> <span class="fl">0.2277868</span> <span class="fl">-1.118786</span>  <span class="fl">0.2736758</span> <span class="fl">-0.5324874</span>  <span class="fl">0.3210550</span>  <span class="fl">0.7223532</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>        OFR       OUT        SKN        SLC        SSR         TIM        TUR</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">3.8543355</span>  <span class="fl">3.527296</span>  <span class="fl">3.7102294</span> <span class="fl">-3.0053015</span>  <span class="fl">0.2909058</span> <span class="fl">-0.15395840</span>  <span class="fl">3.0278502</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">0.2837569</span> <span class="fl">-1.309681</span> <span class="fl">-0.9690802</span> <span class="fl">-2.2857357</span> <span class="fl">-5.0172599</span>  <span class="fl">0.07316681</span>  <span class="fl">0.4154857</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">0.2550614</span> <span class="fl">-1.475017</span> <span class="fl">-1.1126406</span>  <span class="fl">0.1827175</span> <span class="fl">-5.5681024</span>  <span class="fl">0.28236407</span> <span class="fl">-0.7913404</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>      USDA10     USDA12     USDA13     USDA14     USDA15     USDA16     USDA17</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">-0.1827119</span> <span class="fl">-1.2563710</span> <span class="fl">-0.6503396</span> <span class="fl">-0.7170976</span> <span class="fl">-2.5281129</span> <span class="fl">-2.3997969</span> <span class="fl">-2.1383908</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-1.6839757</span> <span class="fl">-1.3463352</span> <span class="fl">-2.1405969</span> <span class="fl">-2.9843278</span> <span class="fl">-1.6951548</span> <span class="fl">-1.7662754</span> <span class="fl">-1.9344084</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a><span class="dv">3</span>  <span class="fl">1.5226147</span>  <span class="fl">0.1405484</span>  <span class="fl">0.4535536</span>  <span class="fl">0.5523843</span> <span class="fl">-0.4934142</span> <span class="fl">-0.8578083</span> <span class="fl">-0.6445486</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>      USDA18     USDA19 df2.agr.USDA1 df2.agr.USDA21 df2.agr.USDA2      USDA3</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">-2.0916993</span> <span class="fl">-1.7176160</span>     <span class="fl">0.4190433</span>      <span class="fl">-0.921333</span>     <span class="fl">0.5126406</span> <span class="fl">-0.6466922</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-2.8350151</span> <span class="fl">-2.8041237</span>    <span class="fl">-2.2501734</span>      <span class="fl">-1.833369</span>    <span class="fl">-2.0398049</span> <span class="fl">-0.2643395</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a><span class="dv">3</span> <span class="fl">-0.7144912</span> <span class="fl">-0.3402399</span>     <span class="fl">2.4087908</span>       <span class="fl">1.848250</span>     <span class="fl">2.2239417</span>  <span class="fl">1.2282314</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>       USDA4      USDA5     USDA6     USDA7     USDA8     USDA9        VER</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a><span class="dv">1</span>  <span class="fl">0.7081282</span>  <span class="fl">0.9008194</span>  <span class="fl">1.107652</span>  <span class="fl">1.226827</span>  <span class="fl">1.846822</span>  <span class="fl">1.665155</span> <span class="fl">-3.4492268</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a><span class="dv">2</span> <span class="fl">-1.0688186</span> <span class="fl">-1.1822345</span> <span class="fl">-1.527163</span> <span class="fl">-1.172686</span> <span class="fl">-1.465682</span> <span class="fl">-1.512212</span> <span class="fl">-2.5426615</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a><span class="dv">3</span>  <span class="fl">1.9096496</span>  <span class="fl">2.3122228</span>  <span class="fl">2.183572</span>  <span class="fl">2.149100</span>  <span class="fl">2.314840</span>  <span class="fl">2.273208</span>  <span class="fl">0.6722562</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>         WTR</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a><span class="dv">1</span> <span class="fl">-0.1898949</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a><span class="dv">2</span>  <span class="fl">0.7077555</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a><span class="dv">3</span>  <span class="fl">0.1320863</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a></span></code></pre></div>
+<ul>
+<li>Now both data frames have the same order of populations. Save the data frame.</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="kw">write.table</span>(df2.agr2, <span class="st">&#39;pc123.ENV.pop42.Final&#39;</span>, <span class="dt">quote=</span>F, <span class="dt">sep=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, <span class="dt">row.names=</span>F, <span class="dt">col.names=</span>T)</span></code></pre></div>
+<p><br><br></p>
+<h2 id="environmental-correlation-analysis">4. Environmental Correlation Analysis</h2>
+<p>At this point, we should have three pieces of information to perform environmental correlation using BAYENV2:</p>
+<ul>
+<li>Covariance matrix of allele frequencies,</li>
+<li>Environmental data in the form of first 3 principal components explaining most variance in the data, and</li>
+<li>SNP count files, one per SNP.</li>
+</ul>
+<p>We will using allelic counts from CHR 3 only. The data is located in <code>chr3_in</code> folder:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="fu">ls</span> chr3_in <span class="kw">|</span> <span class="fu">head</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="ex">S3_10169495</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="ex">S3_10230391</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="ex">S3_10288107</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="ex">S3_10311268</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a><span class="ex">S3_10420906</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="ex">S3_10421038</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="ex">S3_10421074</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="ex">S3_10441317</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a><span class="ex">S3_10441323</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a><span class="ex">S3_10535587</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a><span class="fu">ls</span> chr3_in <span class="kw">|</span> <span class="fu">wc</span> -l</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a><span class="ex">6388</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true"></a></span></code></pre></div>
+<ul>
+<li>Therefore we have data on 6388 SNPs from CHR 3. Each file contains allele counts in each of the 42 populations.</li>
+</ul>
+<h3 id="the-runbayechr3.sh-script">4.1 The <code>runBayeChr3.sh</code> Script</h3>
+<p>This script will run Bayenv2 on each SNP file and aggregate results into their own folders. Bayenv2 outputs three types of results:</p>
+<ul>
+<li>Bayes Factors</li>
+<li>Standardized allele frequencies</li>
+<li><em>XTX</em></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="co">### Shortcuts</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="va">covmat=</span><span class="st">&quot;./covmat&quot;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span class="va">envmat=</span><span class="st">&quot;./pc123.ENV.pop42.Final&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span class="va">chr3_in=</span><span class="st">&quot;./chr3_in&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="va">chr3_out=</span><span class="st">&quot;./chr3_out&quot;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="bu">cd</span> <span class="va">$chr1_in</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a><span class="kw">for</span> <span class="ex">snp</span> in S*</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a><span class="kw">do</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;Current time is </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;Working on SNP: </span><span class="va">$snp</span><span class="st">&quot;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a>  <span class="va">rnum=</span><span class="st">&quot;</span><span class="va">$(</span><span class="ex">shuf</span> -i 100000-900000 -n 1<span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;Random Number: </span><span class="va">$rnum</span><span class="st">&quot;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a>  <span class="ex">bayenv2</span> -i <span class="va">$snp</span> -m <span class="va">$covmat</span> -e <span class="va">$envmat</span> -p 42 -k 100000 -r <span class="va">$rnum</span> -t -n 3 -f -X -o <span class="va">$chr3_out</span>/core336_bayenv_chr3</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;Finished working on </span><span class="va">$snp</span><span class="st"> at </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;------------------------------------------&quot;</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true"></a><span class="kw">done</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true"></a><span class="fu">mkdir</span> <span class="va">$chr3_out</span>/std.freqs</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true"></a><span class="fu">mkdir</span> <span class="va">$chr3_out</span>/bf</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true"></a><span class="fu">mkdir</span> <span class="va">$chr3_out</span>/xtx</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true"></a><span class="fu">mv</span> <span class="va">$chr3_in</span>/*.freqs <span class="va">$chr3_out</span>/std.freqs/</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;Standardized Allele Frequency Files for CHR3 are in:&quot;</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">${chr3_out}</span><span class="st">/std.freqs&quot;</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true"></a><span class="fu">mv</span> <span class="va">$chr3_out</span>/*.bf <span class="va">$chr3_out</span>/bf/</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;Bayes Factors for CHR3 are in:&quot;</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">${chr3_out}</span><span class="st">/bf&quot;</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true"></a><span class="fu">mv</span> <span class="va">$chr3_out</span>/*.xtx <span class="va">$chr3_out</span>/xtx/</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;XTX for CHR3 are in:&quot;</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">${chr3_out}</span><span class="st">/xtx&quot;</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true"></a></span></code></pre></div>
+<p><br></p>
+<h3 id="correlation-output">4.2 Correlation Output</h3>
+<p>Once the script finishes running, you should have 6387 individual output files each containing 3 Bayes Factors (and similarly separate files for standardized allele frequency and <em>XTX</em> components. First merge all the BF files together into a single file:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="bu">cd</span> chr3_out</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="fu">ls</span> <span class="kw">|</span> <span class="fu">wc</span> -l</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="ex">6387</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a><span class="fu">cat</span> *.bf <span class="op">&gt;</span> bf/core336_bayenv_chr3.bf</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a><span class="fu">head</span> core336_bayenv_chr3.bf</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a><span class="ex">S3_1002415</span>  1.7076e-01  3.2641e-01  1.7951e-01  </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a><span class="ex">S3_1002421</span>  3.8559e+01  1.6463e+00  1.9971e-01  </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a><span class="ex">S3_1002437</span>  4.6188e-01  3.7350e-01  3.3666e-01  </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a><span class="ex">S3_10054178</span> 1.3006e-01  2.0003e-01  2.2075e-01  </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a><span class="ex">S3_10054179</span> 1.8279e-01  2.5539e-01  2.4947e-01  </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a><span class="ex">S3_10054181</span> 2.7824e-01  5.6616e-01  3.4301e-01  </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a><span class="ex">S3_101579</span>   1.1257e-01  5.2501e-01  3.7978e-01  </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true"></a><span class="ex">S3_101615</span>   2.3428e-01  2.7866e-01  2.4620e-01  </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a><span class="ex">S3_10169455</span> 2.9605e-01  2.5993e-01  2.0779e-01  </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a><span class="ex">S3_10169481</span> 2.8951e-01  2.1797e-01  1.8969e-01  </span></code></pre></div>
+<p>These are the Bayes Factors for each of the three PCs we analyzed, listed per tested SNP.</p>
+<h3 id="understanding-bayes-factor-output">4.3 Understanding Bayes Factor Output</h3>
+<p>Bayenv tests every SNP under consideration for correlation against provided environmental variables. In our case, the envars are PC1, PC2 and PC3. Higher bayes factors indicate stronger correlation than lower. We will look at sites that are among the top 1% (highest bayes factors) for each of the PCs.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="kw">setwd</span>(<span class="st">&quot;chr3_out/bf/&quot;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>bf336 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;core336_bayenv_chr3.bf&quot;</span>, <span class="dt">header=</span>F)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a><span class="kw">head</span>(bf336)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a><span class="kw">colnames</span>(bf336) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CHR_POS&quot;</span>, <span class="st">&quot;BF_PC1&quot;</span>, <span class="st">&quot;BF_PC2&quot;</span>, <span class="st">&quot;BF_PC3&quot;</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="kw">head</span>(bf336)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a>      CHR_POS   BF_PC1  BF_PC2  BF_PC3</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a><span class="dv">1</span>  S3_<span class="dv">1002415</span>  <span class="fl">0.17076</span> <span class="fl">0.32641</span> <span class="fl">0.17951</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a><span class="dv">2</span>  S3_<span class="dv">1002421</span> <span class="fl">38.55900</span> <span class="fl">1.64630</span> <span class="fl">0.19971</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a><span class="dv">3</span>  S3_<span class="dv">1002437</span>  <span class="fl">0.46188</span> <span class="fl">0.37350</span> <span class="fl">0.33666</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a><span class="dv">4</span> S3_<span class="dv">10054178</span>  <span class="fl">0.13006</span> <span class="fl">0.20003</span> <span class="fl">0.22075</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true"></a><span class="dv">5</span> S3_<span class="dv">10054179</span>  <span class="fl">0.18279</span> <span class="fl">0.25539</span> <span class="fl">0.24947</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true"></a><span class="dv">6</span> S3_<span class="dv">10054181</span>  <span class="fl">0.27824</span> <span class="fl">0.56616</span> <span class="fl">0.34301</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true"></a><span class="kw">quantile</span>(bf336<span class="op">$</span>BF_PC1)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true"></a>         <span class="dv">0</span><span class="op">%         25%</span><span class="st">         </span><span class="dv">50</span><span class="op">%         75%</span><span class="st">        </span><span class="dv">100</span>% </span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true"></a><span class="fl">9.86880e-02</span> <span class="fl">1.63280e-01</span> <span class="fl">2.09790e-01</span> <span class="fl">3.13995e-01</span> <span class="fl">8.75500e+21</span> </span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true"></a><span class="kw">quantile</span>(bf336<span class="op">$</span>BF_PC2)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true"></a>         <span class="dv">0</span><span class="op">%         25%</span><span class="st">         </span><span class="dv">50</span><span class="op">%         75%</span><span class="st">        </span><span class="dv">100</span>% </span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true"></a><span class="fl">1.60630e-01</span> <span class="fl">2.61165e-01</span> <span class="fl">3.23830e-01</span> <span class="fl">4.51890e-01</span> <span class="fl">9.20010e+11</span> </span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true"></a><span class="kw">quantile</span>(bf336<span class="op">$</span>BF_PC3)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true"></a>        <span class="dv">0</span><span class="op">%        25%</span><span class="st">        </span><span class="dv">50</span><span class="op">%        75%</span><span class="st">       </span><span class="dv">100</span>% </span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true"></a>  <span class="fl">0.140750</span>   <span class="fl">0.221445</span>   <span class="fl">0.266620</span>   <span class="fl">0.352180</span> <span class="fl">234.600000</span> </span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true"></a></span></code></pre></div>
+<p>It appears that for all 3 PCs, the top candidate sites have orders of magnitude higher bayes factors.</p>
+<h3 id="plot-bayes-factors">4.4 Plot Bayes Factors</h3>
+<p>We will make a simple scatterplots (one per PC) so as to visually identify extreme candidate outliers among a large pool of SNPs.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="kw">library</span>(scales)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="kw">head</span>(bf336)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>      CHR_POS   BF_PC1  BF_PC2  BF_PC3</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a><span class="dv">1</span>  S3_<span class="dv">1002415</span>  <span class="fl">0.17076</span> <span class="fl">0.32641</span> <span class="fl">0.17951</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a><span class="dv">2</span>  S3_<span class="dv">1002421</span> <span class="fl">38.55900</span> <span class="fl">1.64630</span> <span class="fl">0.19971</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a><span class="dv">3</span>  S3_<span class="dv">1002437</span>  <span class="fl">0.46188</span> <span class="fl">0.37350</span> <span class="fl">0.33666</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a><span class="dv">4</span> S3_<span class="dv">10054178</span>  <span class="fl">0.13006</span> <span class="fl">0.20003</span> <span class="fl">0.22075</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a><span class="dv">5</span> S3_<span class="dv">10054179</span>  <span class="fl">0.18279</span> <span class="fl">0.25539</span> <span class="fl">0.24947</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a><span class="dv">6</span> S3_<span class="dv">10054181</span>  <span class="fl">0.27824</span> <span class="fl">0.56616</span> <span class="fl">0.34301</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a><span class="kw">dim</span>(bf336)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>[<span class="dv">1</span>] <span class="dv">6387</span>    <span class="dv">4</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a><span class="kw">pdf</span>(<span class="st">&#39;bf336.pdf&#39;</span>, <span class="dt">width=</span><span class="dv">11</span>, <span class="dt">height=</span><span class="dv">4</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>)<span class="op">+</span><span class="fl">0.1</span>, <span class="dt">oma=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="op">+</span><span class="fl">0.1</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6387</span>), bf336<span class="op">$</span>BF_PC1, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="kw">alpha</span>(<span class="st">&#39;darkgreen&#39;</span>, <span class="fl">0.7</span>), <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">xlab=</span><span class="st">&#39;SNPs on CHR3&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;BF (PC1)&#39;</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a><span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="st">&#39;BF - PC1&#39;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6387</span>), bf336<span class="op">$</span>BF_PC2, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="kw">alpha</span>(<span class="st">&#39;darkgreen&#39;</span>, <span class="fl">0.7</span>), <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">xlab=</span><span class="st">&#39;SNPs on CHR3&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;BF (PC2)&#39;</span>)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a><span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="st">&#39;BF - PC2&#39;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a><span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6387</span>), bf336<span class="op">$</span>BF_PC3, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="kw">alpha</span>(<span class="st">&#39;darkgreen&#39;</span>, <span class="fl">0.7</span>), <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">xlab=</span><span class="st">&#39;SNPs on CHR3&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;BF (PC3)&#39;</span>)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true"></a><span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="st">&#39;BF - PC3&#39;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true"></a><span class="kw">title</span>(<span class="dt">main=</span><span class="st">&quot;BAYENV2 BF Indicating Selection Candidate SNPs&quot;</span>, <span class="dt">outer=</span><span class="ot">TRUE</span>, <span class="dt">font.main=</span><span class="dv">1</span>, <span class="dt">line=</span><span class="op">-</span><span class="dv">1</span>, <span class="dt">cex.main=</span><span class="fl">1.5</span>)</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true"></a></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true"></a><span class="kw">dev.off</span>()</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true"></a></span></code></pre></div>
+<p><br></p>
+<center>
+<a href="bf336.png"><img src="bf336.png" width=800></a>
+</center>
+<h3 id="identify-extreme-outliers">4.5 Identify Extreme Outliers</h3>
+<p>We can use the <code>subset</code> function in R to quickly identify the outliers for each PCs.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="kw">subset</span>(bf336, BF_PC1 <span class="op">&gt;</span><span class="st"> </span><span class="fl">8e+21</span> <span class="op">|</span><span class="st"> </span>BF_PC2 <span class="op">&gt;</span><span class="st"> </span><span class="fl">8e+11</span> <span class="op">|</span><span class="st"> </span>BF_PC3 <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>         CHR_POS     BF_PC1     BF_PC2  BF_PC3</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="dv">2798</span> S3_<span class="dv">18489700</span> <span class="fl">8.7550e+21</span> <span class="fl">9.2001e+11</span>  <span class="fl">38.852</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a><span class="dv">2935</span>  S3_<span class="dv">1891169</span> <span class="fl">1.5174e-01</span> <span class="fl">2.2109e+00</span> <span class="fl">233.050</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a><span class="dv">5937</span>  S3_<span class="dv">8437952</span> <span class="fl">1.0663e+00</span> <span class="fl">2.9591e-01</span> <span class="fl">234.600</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a></span></code></pre></div>
+<p>We were expecting four SNPs, but only found 3. If you look carefully, you will notice that the SNP <code>S3_18489700</code> is an outlier for both PC1 and PC2. This indicates it is highly correlated to multiple environmental variables that are part of either PC1 or PC2. You can further investigate this by looking at genome annotations in <em>P. trichocarpa</em> to discern what functional pathways this SNP (and the other two) is involved in.</p>
+</body>
+</html>
